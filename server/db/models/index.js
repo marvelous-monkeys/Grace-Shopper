@@ -1,4 +1,5 @@
 const User = require('./user')
+const Address = require('./address')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -7,6 +8,8 @@ const User = require('./user')
  *    BlogPost.belongsTo(User)
  */
 
+Address.hasMany(User)
+User.belongsTo(Address)
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
