@@ -13,15 +13,19 @@ const AuthForm = props => {
     <div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
-          <label htmlFor="firstName">
-            <small>First Name</small>
-          </label>
-          <input name="firstName" type="text" />
+          {name === 'signup' && (
+            <label htmlFor="firstName">
+              <small>First Name</small>
+            </label>
+          )}
+          {name === 'signup' && <input name="firstName" type="text" />}
 
-          <label htmlFor="lastName">
-            <small>Last Name</small>
-          </label>
-          <input name="lastName" type="text" />
+          {name === 'signup' && (
+            <label htmlFor="lastName">
+              <small>Last Name</small>
+            </label>
+          )}
+          {name === 'signup' && <input name="lastName" type="text" />}
 
           <label htmlFor="email">
             <small>Email</small>
