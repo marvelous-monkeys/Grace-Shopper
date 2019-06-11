@@ -3,10 +3,22 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true,
+      notEmpty: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -28,6 +40,30 @@ const User = db.define('user', {
     type: Sequelize.STRING
   }
 })
+
+User.beforeValidate(user => {
+  user.firstName = user.firstName.trim()
+  user.lastName = user.lastName.trim()
+  user.email = user.email.trim()
+})
+
+// Users.beforeValidate(users => {
+//   if (users.firstName[0] === ' ' || users.firstName.length === 0) {
+//     users.firstName = null;
+//   }
+// });
+
+// Users.beforeValidate(users => {
+//   if (users.lastName[0] === ' ' || users.lastName.length === 0) {
+//     users.lastName = null;
+//   }
+// });
+
+// Users.beforeValidate(users => {
+//   if (users.email[0] === ' ' || users.email.length === 0) {
+//     users.email = null;
+//   }
+// });
 
 module.exports = User
 
