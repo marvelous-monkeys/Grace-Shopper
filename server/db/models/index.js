@@ -1,5 +1,6 @@
 const User = require('./user')
 const Address = require('./address')
+const Product = require('./products')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -17,5 +18,6 @@ User.belongsTo(Address)
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User
+  User,
+  Product
 }
