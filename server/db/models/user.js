@@ -5,11 +5,17 @@ const db = require('../db')
 const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      len: 1
+    }
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      len: 1
+    }
   },
   email: {
     type: Sequelize.STRING,
@@ -41,7 +47,7 @@ const User = db.define('user', {
   }
 })
 
-User.beforeValidate(user => {
+User.afterValidate(user => {
   user.firstName = user.firstName.trim()
   user.lastName = user.lastName.trim()
   user.email = user.email.trim()
