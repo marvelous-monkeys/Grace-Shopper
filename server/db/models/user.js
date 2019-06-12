@@ -23,7 +23,37 @@ const User = db.define('user', {
     allowNull: false,
     validate: {
       isEmail: true,
-      notEmpty: true
+      notEmpty: true,
+      len: 1
+    }
+  },
+  streetName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      len: 1
+    }
+  },
+  city: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      len: 1
+    }
+  },
+  state: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      len: 1
+    }
+  },
+  zipcode: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      len: 1,
+      is: /^[0-9]+$/i
     }
   },
   password: {
@@ -51,25 +81,11 @@ User.afterValidate(user => {
   user.firstName = user.firstName.trim()
   user.lastName = user.lastName.trim()
   user.email = user.email.trim()
+  user.streetName = user.streetName.trim()
+  user.city = user.city.trim()
+  user.state = user.state.trim()
+  user.zipcode = user.zipcode.trim()
 })
-
-// Users.beforeValidate(users => {
-//   if (users.firstName[0] === ' ' || users.firstName.length === 0) {
-//     users.firstName = null;
-//   }
-// });
-
-// Users.beforeValidate(users => {
-//   if (users.lastName[0] === ' ' || users.lastName.length === 0) {
-//     users.lastName = null;
-//   }
-// });
-
-// Users.beforeValidate(users => {
-//   if (users.email[0] === ' ' || users.email.length === 0) {
-//     users.email = null;
-//   }
-// });
 
 module.exports = User
 

@@ -27,6 +27,34 @@ const AuthForm = props => {
           )}
           {name === 'signup' && <input name="lastName" type="text" />}
 
+          {name === 'signup' && (
+            <label htmlFor="streetName">
+              <small>Street Name</small>
+            </label>
+          )}
+          {name === 'signup' && <input name="streetName" type="text" />}
+
+          {name === 'signup' && (
+            <label htmlFor="city">
+              <small>City</small>
+            </label>
+          )}
+          {name === 'signup' && <input name="city" type="text" />}
+
+          {name === 'signup' && (
+            <label htmlFor="state">
+              <small>State</small>
+            </label>
+          )}
+          {name === 'signup' && <input name="state" type="text" />}
+
+          {name === 'signup' && (
+            <label htmlFor="zipcode">
+              <small>Zipcode</small>
+            </label>
+          )}
+          {name === 'signup' && <input name="zipcode" type="text" />}
+
           <label htmlFor="email">
             <small>Email</small>
           </label>
