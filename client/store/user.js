@@ -33,8 +33,12 @@ export const me = () => async dispatch => {
 export const auth = (
   email,
   password,
-  firstName,
-  lastName,
+  firstName = null,
+  lastName = null,
+  streetName = null,
+  city = null,
+  state = null,
+  zipcode = null,
   method
 ) => async dispatch => {
   let res
@@ -43,7 +47,11 @@ export const auth = (
       email,
       password,
       firstName,
-      lastName
+      lastName,
+      streetName,
+      city,
+      state,
+      zipcode
     })
   } catch (authError) {
     return dispatch(getUser({error: authError}))
