@@ -33,12 +33,12 @@ export const me = () => async dispatch => {
 export const auth = (
   email,
   password,
-  firstName = null,
-  lastName = null,
-  streetName = null,
-  city = null,
-  state = null,
-  zipcode = null,
+  firstName,
+  lastName,
+  streetName,
+  city,
+  state,
+  zipcode,
   method
 ) => async dispatch => {
   let res

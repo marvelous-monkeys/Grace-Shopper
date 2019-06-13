@@ -47,7 +47,10 @@ async function seed() {
     Order.create(
       {
         totalAmount: 100,
-        orderProducts: [{quantity: 2, productId: 2}]
+        orderProducts: [
+          {quantity: 2, productId: 2},
+          {quantity: 3, productId: 1}
+        ]
       },
       {include: [OrderProduct]}
     )
