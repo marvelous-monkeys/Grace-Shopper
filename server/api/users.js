@@ -3,7 +3,6 @@ const {User} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  console.log('getting')
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -18,7 +17,6 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  console.log('posting')
   try {
     const users = await User.create({
       firstName: req.body.firstName,
