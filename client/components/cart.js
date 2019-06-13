@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {addToCart, removeFromCart} from '../store/cart'
+import {Link} from 'react-router-dom'
 
 import css from './cart.css'
 class Cart extends Component {
@@ -49,6 +50,7 @@ class Cart extends Component {
             </tr>
           ))}
         </tbody>
+        <Link to="/checkout">Checkout Here!</Link>
       </table>
     ) : (
       <h1>The cart is empty</h1>

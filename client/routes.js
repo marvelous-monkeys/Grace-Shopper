@@ -22,7 +22,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {/* <Route path="/cart" components={{Cart, Checkout}} /> */}
+        <Route path="/cart" component={Cart} />
+        <Route path="/checkout" component={Checkout} />
         <Route path="/cart" component={Checkout} />
         <Route path="/" component={ProductList} />
         {isLoggedIn && (
