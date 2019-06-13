@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addToCart, removeFromCart} from '../store/cart'
 
 import css from './cart.css'
+import CartListItem from './cartListItem'
 class Cart extends Component {
   render() {
     return this.props.cart.products ? (
@@ -24,29 +24,7 @@ class Cart extends Component {
           </tr>
 
           {Object.keys(this.props.cart.products).map(el => (
-            <tr key={el}>
-              <th>{this.props.cart.products[el].name}</th>
-              <th>{this.props.cart.products[el].price}</th>
-              <th>
-                {this.props.cart.products[el].quantity}
-                {/* <img onMouseOver = {(event)=>event.target.src='../cart/minus_selected.jpg'}
-                onMouseOut = {(event)=>event.target.src='../cart/minus.jpg'}
-                  className="plus-minus-buttons"
-                  src="../cart/minus.jpg"
-                />
-                <img onMouseOver = {(event)=>event.target.src='../cart/add_selected.jpg'}
-                onMouseOut = {(event)=>event.target.src='../cart/add.jpg'}
-                  className="plus-minus-buttons"
-                  src="../cart/add.jpg" onClick={(ev)=>this.props.addToCart(console.dir(ev.target.parentNode.parentNode.getAttribute('data-key')))}
-                /> */}
-              </th>
-              <th>
-                {+this.props.cart.products[el].quantity *
-                  +this.props.cart.products[el].price}
-              </th>
-              <th />
-              <th />
-            </tr>
+            <CartListItem key={el} product={this.props.cart.products[el]} />
           ))}
         </tbody>
       </table>
@@ -60,11 +38,4 @@ const mapState = state => ({
   cart: state.cart
 })
 
-const mapDispatch = dispatch => {
-  return {
-    addToCart: id => dispatch(addToCart(id)),
-    removeFromCart: id => dispatch(removeFromCart(id))
-  }
-}
-
-export default connect(mapState, mapDispatch)(Cart)
+export default connect(mapState)(Cart)
