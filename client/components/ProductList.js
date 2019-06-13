@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getAllProducts} from '../store/products'
 import {Link} from 'react-router-dom'
+import {addToCart} from '../store/cart' //TODO:
 // import Axios from 'axios'
 
 class ProductList extends Component {
@@ -13,6 +14,10 @@ class ProductList extends Component {
   //   await Axios.delete(`/api/products/${id}`)
   //   this.props.getAllProducts();
   // }
+
+  handleClick(product) {
+    this.props.addToCart(product)
+  }
 
   render() {
     return (
@@ -31,7 +36,7 @@ class ProductList extends Component {
               <button
                 type="button"
                 onClick={() => {
-                  this.handleClick(product.id)
+                  this.handleClick(product)
                 }}
               >
                 ADD to cart
@@ -52,7 +57,8 @@ function mapState(state) {
 
 function mapDispatch(dispatch) {
   return {
-    getAllProducts: () => dispatch(getAllProducts())
+    getAllProducts: () => dispatch(getAllProducts()),
+    addToCart: product => dispatch(addToCart(product))
   }
 }
 

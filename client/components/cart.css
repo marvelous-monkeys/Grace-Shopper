@@ -1,0 +1,29 @@
+#cart {
+  color: black;
+}
+
+.plus-minus-buttons {
+  width: 20px;
+  height: 20px;
+  padding-left: 3px;
+}
+
+/* .plus-minus-buttons:hover {
+  background: url('../cart/minus_selected.jpg');
+} */
+
+#cart-table-name {
+  width: 250px;
+}
+
+#cart-table-quant {
+  width: 150px;
+}
+
+#cart-table-amount {
+  width: 150px;
+}
+
+#cart-table-remove {
+  width: 150px;
+}
