@@ -6,7 +6,7 @@ router.post('/', (req, res, next) => {
     const order = Order.create(
       {
         totalAmount: req.body.totalAmount,
-        orderProducts: [...req.body.products]
+        orderProducts: req.body.allProducts
       },
       {include: [OrderProduct]}
     )
