@@ -5,6 +5,7 @@
  */
 const ADD = 'ADD'
 const REMOVE = 'REMOVE'
+const EMPTY = 'EMPTY'
 
 /**
  * INITIAL STATE
@@ -22,6 +23,10 @@ export const removeFromCart = (productId, quantity = 1) => ({
   type: REMOVE,
   productId,
   quantity
+})
+
+export const emptyCart = () => ({
+  type: EMPTY
 })
 
 /**
@@ -57,6 +62,8 @@ export default function(state = initialState, action) {
         }
       }
       return newStateR
+    case EMPTY:
+      return {}
     default:
       return state
   }

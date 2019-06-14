@@ -14,6 +14,9 @@ const OrderProduct = require('./orderProduct')
 Address.hasMany(User)
 User.belongsTo(Address)
 
+User.hasMany(Order)
+Order.belongsTo(User)
+
 Order.hasMany(OrderProduct)
 OrderProduct.belongsTo(Order)
 
