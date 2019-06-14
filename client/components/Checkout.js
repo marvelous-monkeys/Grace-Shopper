@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {Signup} from './index'
-import {auth} from '../store'
+import {auth} from '../store/user'
+import {emptyCart} from '../store/cart'
 
 class Checkout extends Component {
   constructor() {
@@ -35,9 +36,8 @@ class Checkout extends Component {
     })
   }
 
-  signUserUp(event) {
-    this.props.signupUser(event)
-    // this.placeOrder()
+  async signUserUp(event) {
+    this.props.signupUser(event, this.placeOrder)
   }
 
   async placeOrder() {
@@ -161,7 +161,8 @@ class Checkout extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    signupUser(evt) {
+    async signupUser(evt, placeOrder) {
+      evt.preventDefault()
       const formName = 'signup'
       const email = evt.target.email.value
       const password = evt.target.password.value
@@ -171,7 +172,7 @@ const mapDispatch = dispatch => {
       const city = evt.target.city.value
       const state = evt.target.state.value
       const zipcode = evt.target.zipcode.value
-      dispatch(
+      await dispatch(
         auth(
           email,
           password,
@@ -184,6 +185,8 @@ const mapDispatch = dispatch => {
           formName
         )
       )
+      placeOrder()
+      dispatch(emptyCart())
     }
   }
 }
