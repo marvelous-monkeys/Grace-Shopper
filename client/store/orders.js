@@ -13,7 +13,7 @@ const gotUserOrders = userOrders => ({
 })
 
 //Thunk Creators
-const userOrdersThunk = () => {
+export const userOrdersThunk = () => {
   return async dispatch => {
     try {
       const userOrders = await axios.get('/orderHistory')
