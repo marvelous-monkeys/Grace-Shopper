@@ -14,11 +14,12 @@ router.get('/', (req, res, next) => {
 })
 
 router.put('/', async (req, res, next) => {
-  if (!req.user && !req.sessionID && !req.query.id) next('wrong request')
+  if ((!req.user && !req.sessionID) || !req.body.params.id)
+    next('wrong request')
   let where = {}
   let quantity = 1
-  if (req.query.quantity) quantity = +req.query.quantity
-  where.productId = +req.query.id
+  if (req.body.params.quantity) quantity = +req.body.params.quantity
+  where.productId = +req.body.params.id
   if (req.user) {
     where.userId = req.user.id
   } else {
@@ -39,6 +40,7 @@ router.put('/', async (req, res, next) => {
   res.sendStatus(204)
 })
 
+// eslint-disable-next-line complexity
 router.delete('/', async (req, res, next) => {
   let quantity = 1
   if (req.query.quantity) quantity = req.query.quantity
