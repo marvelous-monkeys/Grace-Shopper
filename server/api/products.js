@@ -22,3 +22,37 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:id', async (req, res, next) => {
+  const {id, name, price, description, imageUrl} = req.body
+  try {
+    const [numOfRowsUpdated, affectedRows] = await Product.update(
+      {
+        id,
+        name,
+        price,
+        description,
+        imageUrl
+      },
+      {
+        where: {id: req.params.id},
+        returning: true
+      }
+    )
+    if (!affectedRows[0]) res.status(404).send('404 ERROR: Invalid product ID.')
+    else res.send(affectedRows[0])
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deletedItem = await Product.destroy({
+      where: {id: +req.params.id}
+    })
+    if (deletedItem) res.send('Successfully deleted item: ', deletedItem)
+  } catch (error) {
+    next(error)
+  }
+})
