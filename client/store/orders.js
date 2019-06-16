@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 //Initial State
-const initialState = []
+const initialState = {}
 
 //Action Types
 const GET_USER_ORDERS = 'GET_USER_ORDERS'
@@ -13,14 +13,12 @@ const gotUserOrders = userOrders => ({
 })
 
 //Thunk Creators
-export const userOrdersThunk = () => {
-  return async dispatch => {
-    try {
-      const userOrders = await axios.get('/orderHistory')
-      dispatch(gotUserOrders)
-    } catch (error) {
-      console.log('orderHistory error')
-    }
+export const userOrdersThunk = () => async dispatch => {
+  try {
+    const res = await axios.get('api/orders')
+    dispatch(gotUserOrders(res.data))
+  } catch (error) {
+    console.log('orderHistory error')
   }
 }
 
@@ -29,7 +27,7 @@ export const userOrdersThunk = () => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER_ORDERS:
-      return [...action.userOrders]
+      return {...action.userOrders}
     default:
       return state
   }

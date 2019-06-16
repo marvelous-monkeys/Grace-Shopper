@@ -67,7 +67,6 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
   app.use('/checkout', require('./checkout'))
-  app.use('/orderHistory', require('./orderHistory'))
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
