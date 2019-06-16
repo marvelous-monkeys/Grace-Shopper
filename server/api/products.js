@@ -12,6 +12,23 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  try {
+    const {id, name, price, description, imageUrl} = req.body
+    const newProduct = await Product.create({
+      id,
+      name,
+      price,
+      description,
+      imageUrl
+    })
+    if (!newProduct) res.send('Product was not created.')
+    else res.json(newProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // gets products based on product ID
 router.get('/:id', async (req, res, next) => {
   try {
@@ -20,6 +37,18 @@ router.get('/:id', async (req, res, next) => {
     res.json(product)
   } catch (err) {
     next(err)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deletedItem = await Product.destroy({
+      where: {id: req.params.id}
+    })
+    if (!deletedItem) res.status(404).send('Item ID not found')
+    else res.status(204).send('Successful Deletion of item.')
+  } catch (error) {
+    next(error)
   }
 })
 
@@ -41,17 +70,6 @@ router.put('/:id', async (req, res, next) => {
     )
     if (!affectedRows[0]) res.status(404).send('404 ERROR: Invalid product ID.')
     else res.send(affectedRows[0])
-  } catch (error) {
-    next(error)
-  }
-})
-
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const deletedItem = await Product.destroy({
-      where: {id: +req.params.id}
-    })
-    if (deletedItem) res.send('Successfully deleted item: ', deletedItem)
   } catch (error) {
     next(error)
   }

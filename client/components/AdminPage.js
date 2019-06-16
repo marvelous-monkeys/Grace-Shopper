@@ -1,22 +1,27 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getAllProducts} from '../store/products'
+import {getAllProducts, deleteSingleProduct} from '../store/products'
+import {getUsers} from '../store/users'
+import {deleteSingleUser} from '../store/users'
 
 class AdminPage extends React.Component {
   componentDidMount() {
     this.props.getAllProducts()
+    this.props.getUsers()
   }
 
   render() {
-    const sort = items => {
-      return items.sort((a, b) => a.id > b.id)
+    const sort = arr => {
+      return arr.sort((a, b) => a.id > b.id)
     }
-
     return (
       <div id="admin-page">
         <div className="admin-container">
           <h1>Products:</h1>
+          <button type="submit">
+            <Link to="/admin/products/create">Add New Item</Link>
+          </button>
           <table>
             <thead>
               <tr>
@@ -44,7 +49,38 @@ class AdminPage extends React.Component {
                       </button>
                     </td>
                     <td>
-                      <button type="submit">Delete</button>
+                      <button
+                        type="submit"
+                        onClick={() => this.props.deleteProduct(item.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+          <table>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>User Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.users.map(user => {
+                return (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.email}</td>
+                    <td>
+                      <button
+                        type="submit"
+                        onClick={() => this.props.removeUser(user.id)}
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 )
@@ -63,7 +99,10 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  getAllProducts: () => dispatch(getAllProducts())
+  getAllProducts: () => dispatch(getAllProducts()),
+  deleteProduct: id => dispatch(deleteSingleProduct(id)),
+  getUsers: () => dispatch(getUsers()),
+  removeUser: id => dispatch(deleteSingleUser(id))
 })
 
 export default connect(mapState, mapDispatch)(AdminPage)

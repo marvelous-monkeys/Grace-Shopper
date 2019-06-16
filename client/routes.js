@@ -9,7 +9,8 @@ import {
   Cart,
   Checkout,
   AdminPage,
-  EditProductForm
+  EditProductForm,
+  AddProductForm
 } from './components'
 import {me} from './store'
 import ProductList from './components/ProductList'
@@ -34,6 +35,7 @@ class Routes extends Component {
         <Route path="/checkout" component={Checkout} />
         <Route path="/cart" component={Checkout} />
         <Route exact path="/admin" component={AdminPage} />
+        <Route exact path="/admin/products/create" component={AddProductForm} />
         <Route path="/admin/products/:id/update" component={EditProductForm} />
         <Route path="/" component={ProductList} />
         {/* {this.props.user

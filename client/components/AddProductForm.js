@@ -1,22 +1,21 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchProduct, updatingProduct} from '../store/singleProduct'
+import {createNewProduct, getAllProducts} from '../store/products'
 
-class EditProductForm extends Component {
+class AddProductForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       name: '',
       price: '',
       description: '',
-      imageUrl: ''
+      imageUrl:
+        'https://oldschool.runescape.wiki/images/f/f5/Prayer_potion%281%29_detail.png?74091',
+      success: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
-  }
-  componentDidMount() {
-    this.props.fetchProduct(+this.props.match.params.id)
   }
 
   handleChange(event) {
@@ -27,16 +26,16 @@ class EditProductForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.updateProduct(+this.props.match.params.id, this.state)
+    this.props.createProduct(this.state)
+    this.props.getAllProducts()
 
     this.setState({
       name: '',
       price: '',
       description: '',
-      imageUrl: ''
+      imageUrl: '',
+      success: true
     })
-
-    this.handleRedirect()
   }
 
   handleRedirect() {
@@ -46,19 +45,21 @@ class EditProductForm extends Component {
   render() {
     return (
       <div>
-        <form
-          onSubmit={this.handleSubmit}
-          className="product-form"
-          key={this.props.product.id}
-        >
+        <div>
+          {this.state.success ? (
+            <h1>Successfully Created Item!</h1>
+          ) : (
+            <h1>Create a New Product:</h1>
+          )}
+        </div>
+        <form onSubmit={this.handleSubmit} className="product-form">
           <label htmlFor="name">
             Name:
             <input
               name="name"
               placeholder="Name..."
               type="text"
-              defaultValue={this.props.product.name || ''}
-              // value={this.state.name}
+              value={this.state.name}
               onChange={this.handleChange}
             />
           </label>
@@ -68,8 +69,7 @@ class EditProductForm extends Component {
               name="price"
               placeholder="Price..."
               type="text"
-              defaultValue={this.props.product.price || ''}
-              // value={this.state.price}
+              value={this.state.price}
               onChange={this.handleChange}
             />
           </label>
@@ -79,8 +79,7 @@ class EditProductForm extends Component {
               name="description"
               placeholder="description..."
               type="text"
-              defaultValue={this.props.product.description || ''}
-              // value={this.state.description}
+              value={this.state.description}
               onChange={this.handleChange}
             />
           </label>
@@ -90,26 +89,21 @@ class EditProductForm extends Component {
               name="imageUrl"
               placeholder="imageUrl..."
               type="text"
-              defaultValue={this.props.product.imageUrl || ''}
-              // value={this.state.imageUrl}
+              value={this.state.imageUrl}
               onChange={this.handleChange}
             />
           </label>
-          <button type="submit">Submit</button>
+          <button type="submit">Create</button>
         </form>
-        <button onClick={this.handleRedirect}>Cancel</button>
+        <button onClick={this.handleRedirect}>Go Back</button>
       </div>
     )
   }
 }
 
-const mapState = state => ({
-  product: state.singleProduct
-})
-
 const mapDispatch = dispatch => ({
-  fetchProduct: id => dispatch(fetchProduct(id)),
-  updateProduct: (id, product) => dispatch(updatingProduct(id, product))
+  createProduct: data => dispatch(createNewProduct(data)),
+  getAllProducts: () => dispatch(getAllProducts())
 })
 
-export default connect(mapState, mapDispatch)(EditProductForm)
+export default connect(null, mapDispatch)(AddProductForm)
