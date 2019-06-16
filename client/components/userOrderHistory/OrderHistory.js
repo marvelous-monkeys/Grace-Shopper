@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {userOrdersThunk} from '../store'
+import {userOrdersThunk} from '../../store'
 import Order from './Order'
 
 class OrderHistory extends Component {
@@ -11,8 +11,8 @@ class OrderHistory extends Component {
   render() {
     return (
       <div>
-        {Object.keys(this.props.orders).map(el => (
-          <Order order={this.props.orders[el]} />
+        {Object.keys(this.props.orders).map((el, i) => (
+          <Order key={i} order={this.props.orders[el]} />
         ))}
       </div>
     )
