@@ -4,12 +4,12 @@ import axios from 'axios'
 import {Signup} from './index'
 import {auth} from '../store/user'
 import {emptyCart} from '../store/cart'
+import {placeOrderThunk} from '../store/orders'
 
 class Checkout extends Component {
   constructor() {
     super()
     this.state = {
-      cart: {},
       firstName: '',
       lastName: '',
       streetName: '',
@@ -19,7 +19,6 @@ class Checkout extends Component {
       email: '',
       password: ''
     }
-    this.placeOrder = this.placeOrder.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.signUserUp = this.signUserUp.bind(this)
   }
@@ -36,24 +35,22 @@ class Checkout extends Component {
     })
   }
 
-  async signUserUp(event) {
-    this.props.signupUser(event, this.placeOrder)
-  }
-
-  async placeOrder() {
-    let allProducts = []
-    let totalAmount = 0
-    for (let singleProduct in this.state.cart.products) {
-      let productId = this.state.cart.products[singleProduct].id
-      let quantity = this.state.cart.products[singleProduct].quantity
-      let price = this.state.cart.products[singleProduct].price
-      allProducts.push({
-        productId,
-        quantity
-      })
-      totalAmount += quantity * price
+  async signUserUp(evt) {
+    // this.props.signupUser(event, this.props.cart)
+    evt.preventDefault()
+    const userInfo = {
+      formName: 'signup',
+      email: evt.target.email.value,
+      password: evt.target.password.value,
+      firstName: evt.target.firstName.value,
+      lastName: evt.target.lastName.value,
+      streetName: evt.target.streetName.value,
+      city: evt.target.city.value,
+      state: evt.target.state.value,
+      zipcode: evt.target.zipcode.value
     }
-    const newOrder = await axios.post('/checkout', {allProducts, totalAmount})
+    await this.props.createUser(userInfo)
+    await this.props.placeOrder(this.props.cart)
   }
 
   render() {
@@ -152,7 +149,10 @@ class Checkout extends Component {
         </form>
       </div>
     ) : (
-      <button type="submit" onClick={this.placeOrder}>
+      <button
+        type="submit"
+        onClick={() => this.props.placeOrder(this.props.cart)}
+      >
         Checkout
       </button>
     )
@@ -161,32 +161,36 @@ class Checkout extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    async signupUser(evt, placeOrder) {
-      evt.preventDefault()
-      const formName = 'signup'
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      const firstName = evt.target.firstName.value
-      const lastName = evt.target.lastName.value
-      const streetName = evt.target.streetName.value
-      const city = evt.target.city.value
-      const state = evt.target.state.value
-      const zipcode = evt.target.zipcode.value
+    placeOrder: async cart => {
+      let allProducts = []
+      let totalAmount = 0
+      for (let singleProduct in cart.products) {
+        let productId = cart.products[singleProduct].id
+        let quantity = cart.products[singleProduct].quantity
+        let price = cart.products[singleProduct].price
+        allProducts.push({
+          productId,
+          quantity
+        })
+        totalAmount += quantity * price
+      }
+      await dispatch(placeOrderThunk({allProducts, totalAmount}))
+      await dispatch(emptyCart())
+    },
+    createUser: async userInfo => {
       await dispatch(
         auth(
-          email,
-          password,
-          firstName,
-          lastName,
-          streetName,
-          city,
-          state,
-          zipcode,
-          formName
+          userInfo.email,
+          userInfo.password,
+          userInfo.firstName,
+          userInfo.lastName,
+          userInfo.streetName,
+          userInfo.city,
+          userInfo.state,
+          userInfo.zipcode,
+          userInfo.formName
         )
       )
-      placeOrder()
-      dispatch(emptyCart())
     }
   }
 }

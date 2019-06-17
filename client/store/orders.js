@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 //Initial State
 const initialState = {}
@@ -18,7 +19,16 @@ export const userOrdersThunk = () => async dispatch => {
     const res = await axios.get('api/orders')
     dispatch(gotUserOrders(res.data))
   } catch (error) {
-    console.log('orderHistory error')
+    throw error
+  }
+}
+
+export const placeOrderThunk = orderInfo => async dispatch => {
+  try {
+    const res = await axios.post('api/orders', orderInfo)
+    history.push('/home')
+  } catch (error) {
+    throw error
   }
 }
 
