@@ -10,7 +10,7 @@ import {
   Checkout,
   AdminPage,
   EditProductForm,
-  AddProductFormm,
+  AddProductForm,
   OrderHistory
 } from './components'
 import {me} from './store'

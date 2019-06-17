@@ -25,12 +25,12 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  if (req.user) {
-    userId = req.user.dataValues.id
-  } else {
-    userId = null
-  }
   try {
+    if (req.user) {
+      userId = req.user.dataValues.id
+    } else {
+      throw 'Must be signed in the create order'
+    }
     const order = Order.create(
       {
         totalAmount: req.body.totalAmount,

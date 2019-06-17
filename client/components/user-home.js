@@ -11,6 +11,7 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      {orderSuccess.length > 0 && <h4>{this.props.orderSuccess}</h4>}
     </div>
   )
 }
@@ -20,7 +21,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    orderSuccess: state.orders.orderSuccess
   }
 }
 
