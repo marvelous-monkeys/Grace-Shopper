@@ -4,6 +4,7 @@ const {Order, OrderProduct} = require('../db/models')
 router.post('/', (req, res, next) => {
   if (req.user) {
     userId = req.user.dataValues.id
+    console.log('req.user :', req.user.id)
   } else {
     userId = null
   }
