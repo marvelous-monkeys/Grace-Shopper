@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import {Signup} from './index'
 import {auth} from '../store/user'
-import {emptyCart, emptyCartDb} from '../store/cart'
+import {emptyCartDb} from '../store/cart'
 
 class Checkout extends Component {
   constructor() {
