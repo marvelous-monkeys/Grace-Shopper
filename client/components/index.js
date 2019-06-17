@@ -9,4 +9,8 @@ export {Login, Signup} from './auth-form'
 export {default as Cart} from './cart'
 export {default as Product} from './ProductList'
 export {default as Checkout} from './Checkout'
+export {default as AdminPage} from './AdminPage'
+export {default as EditProductForm} from './EditProductForm'
+export {default as AddProductForm} from './AddProductForm'
 export {default as OrderHistory} from './userOrderHistory'
+
