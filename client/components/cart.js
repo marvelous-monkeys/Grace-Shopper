@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getCartDb} from '../store/cart'
+import {getCartDb} from '../store'
 
 import css from './cart.css'
 import CartListItem from './cartListItem'
