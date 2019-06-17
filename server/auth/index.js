@@ -32,6 +32,43 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const firstName = req.body.firstName
+    const lastName = req.body.lastName
+    const streetName = req.body.streetName
+    const city = req.body.city
+    const state = req.body.state
+    const zipcode = req.body.zipcode
+    const userID = req.params.id
+    const email = req.body.email
+    const password = req.body.password
+
+    await User.update(
+      {
+        firstName,
+        lastName,
+        email,
+        streetName,
+        city,
+        state,
+        zipcode,
+        password
+      },
+      {
+        where: {
+          id: userID
+        }
+      }
+    )
+
+    // req.login(user, err => (err ? next(err) : res.json(user)))
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/logout', (req, res) => {
   req.logout()
   req.session.destroy()

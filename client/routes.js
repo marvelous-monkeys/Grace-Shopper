@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Cart, Checkout} from './components'
 import {me} from './store'
 import ProductList from './components/ProductList'
+import UserProfile from './components/UserProfile'
 
 /**
  * COMPONENT
@@ -19,19 +20,26 @@ class Routes extends Component {
 
     return (
       <Switch>
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+            <Route path="/profile" component={UserProfile} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/cart" component={Checkout} />
+            <Route path="/" component={ProductList} />
+          </Switch>
+        )}
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/cart" component={Checkout} />
+
         <Route path="/" component={ProductList} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
+
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>

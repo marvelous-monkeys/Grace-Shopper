@@ -1,15 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {Signup} from './index'
-import {auth} from '../store/user'
-import {emptyCart} from '../store/cart'
+import {updateMe} from '../store/user'
 
-class Checkout extends Component {
+class UserProfile extends Component {
   constructor() {
     super()
     this.state = {
-      cart: {},
       firstName: '',
       lastName: '',
       streetName: '',
@@ -17,52 +14,33 @@ class Checkout extends Component {
       state: '',
       zipcode: '',
       email: '',
-      password: ''
+      password: '',
+      button: false
     }
-    this.placeOrder = this.placeOrder.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.signUserUp = this.signUserUp.bind(this)
-  }
 
-  componentDidMount() {
-    this.setState({
-      cart: this.props.cart
-    })
+    this.handleChange = this.handleChange.bind(this)
+    this.updatingTheUser = this.updatingTheUser.bind(this)
   }
 
   handleChange(event) {
+    this.setState({button: true})
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
-  async signUserUp(event) {
-    this.props.signupUser(event, this.placeOrder)
-  }
-
-  async placeOrder() {
-    let allProducts = []
-    let totalAmount = 0
-    for (let singleProduct in this.state.cart.products) {
-      let productId = this.state.cart.products[singleProduct].id
-      let quantity = this.state.cart.products[singleProduct].quantity
-      let price = this.state.cart.products[singleProduct].price
-      allProducts.push({
-        productId,
-        quantity
-      })
-      totalAmount += quantity * price
-    }
-    const newOrder = await axios.post('/checkout', {allProducts, totalAmount})
+  updatingTheUser(event) {
+    const userID = this.props.user.id
+    this.props.updateUser(event, userID)
   }
 
   // eslint-disable-next-line complexity
   render() {
-    return !this.props.user.id ? (
+    return (
       <div>
-        <form onSubmit={event => this.signUserUp(event)}>
+        <form onSubmit={event => this.updatingTheUser(event)}>
           {' '}
-          <h3>Please Sign Up before checking out</h3>
+          <h3>Update Info</h3>
           <label htmlFor="firstName">
             <small>First Name</small>
           </label>
@@ -70,7 +48,7 @@ class Checkout extends Component {
             name="firstName"
             type="text"
             onChange={this.handleChange}
-            value={this.state.firstName}
+            value={this.state.firstName || this.props.user.firstName}
           />
           <label htmlFor="lastName">
             <small>Last Name</small>
@@ -79,7 +57,7 @@ class Checkout extends Component {
             name="lastName"
             type="text"
             onChange={this.handleChange}
-            value={this.state.lastName}
+            value={this.state.lastName || this.props.user.lastName}
           />
           <label htmlFor="streetName">
             <small>Street Name</small>
@@ -88,7 +66,7 @@ class Checkout extends Component {
             name="streetName"
             type="text"
             onChange={this.handleChange}
-            value={this.state.streetName}
+            value={this.state.streetName || this.props.user.streetName}
           />
           <label htmlFor="city">
             <small>City</small>
@@ -97,7 +75,7 @@ class Checkout extends Component {
             name="city"
             type="text"
             onChange={this.handleChange}
-            value={this.state.city}
+            value={this.state.city || this.props.user.city}
           />
           <label htmlFor="state">
             <small>State</small>
@@ -106,7 +84,7 @@ class Checkout extends Component {
             name="state"
             type="text"
             onChange={this.handleChange}
-            value={this.state.state}
+            value={this.state.state || this.props.user.state}
           />
           <label htmlFor="zipcode">
             <small>Zipcode</small>
@@ -115,7 +93,7 @@ class Checkout extends Component {
             name="zipcode"
             type="text"
             onChange={this.handleChange}
-            value={this.state.zipcode}
+            value={this.state.zipcode || this.props.user.zipcode}
           />
           <label htmlFor="email">
             <small>Email</small>
@@ -124,7 +102,7 @@ class Checkout extends Component {
             name="email"
             type="text"
             onChange={this.handleChange}
-            value={this.state.email}
+            value={this.state.email || this.props.user.email}
           />
           <label htmlFor="password">
             <small>Password</small>
@@ -135,36 +113,19 @@ class Checkout extends Component {
             onChange={this.handleChange}
             value={this.state.password}
           />{' '}
-          <button
-            type="submit"
-            disabled={
-              !this.state.firstName.length ||
-              !this.state.lastName.length ||
-              !this.state.streetName.length ||
-              !this.state.city.length ||
-              !this.state.state.length ||
-              !this.state.password.length ||
-              !this.state.zipcode.length ||
-              !this.state.email.length
-            }
-          >
-            Checkout
+          <button type="submit" disabled={!this.state.button}>
+            UPDATE
           </button>
         </form>
       </div>
-    ) : (
-      <button type="submit" onClick={this.placeOrder}>
-        Checkout
-      </button>
     )
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    async signupUser(evt, placeOrder) {
+    async updateUser(evt, id) {
       evt.preventDefault()
-      const formName = 'signup'
       const email = evt.target.email.value
       const password = evt.target.password.value
       const firstName = evt.target.firstName.value
@@ -173,30 +134,27 @@ const mapDispatch = dispatch => {
       const city = evt.target.city.value
       const state = evt.target.state.value
       const zipcode = evt.target.zipcode.value
-      await dispatch(
-        auth(
-          email,
-          password,
-          firstName,
-          lastName,
-          streetName,
-          city,
-          state,
-          zipcode,
-          formName
-        )
-      )
-      placeOrder()
-      dispatch(emptyCart())
+      const updateInfo = {
+        email,
+        password,
+        firstName,
+        lastName,
+        streetName,
+        city,
+        state,
+        zipcode
+      }
+      const userId = id
+
+      await dispatch(updateMe(userId, updateInfo))
     }
   }
 }
 
 const mapState = state => {
   return {
-    cart: state.cart,
     user: state.user
   }
 }
 
-export default connect(mapState, mapDispatch)(Checkout)
+export default connect(mapState, mapDispatch)(UserProfile)
