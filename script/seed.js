@@ -16,7 +16,8 @@ async function seed() {
       streetName: 'Pug Lane',
       city: 'Pug City',
       state: 'NY',
-      zipcode: '11530'
+      zipcode: '11530',
+      isAdmin: true
     }),
     User.create({
       email: 'murphy@email.com',
