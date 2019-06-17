@@ -14,7 +14,6 @@ class UserProfile extends Component {
       state: '',
       zipcode: '',
       email: '',
-      password: '',
       button: false
     }
 
@@ -104,15 +103,6 @@ class UserProfile extends Component {
             onChange={this.handleChange}
             value={this.state.email || this.props.user.email}
           />
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input
-            name="password"
-            type="password"
-            onChange={this.handleChange}
-            value={this.state.password}
-          />{' '}
           <button type="submit" disabled={!this.state.button}>
             UPDATE
           </button>
@@ -127,16 +117,16 @@ const mapDispatch = dispatch => {
     async updateUser(evt, id) {
       evt.preventDefault()
       const email = evt.target.email.value
-      const password = evt.target.password.value
       const firstName = evt.target.firstName.value
       const lastName = evt.target.lastName.value
       const streetName = evt.target.streetName.value
       const city = evt.target.city.value
       const state = evt.target.state.value
       const zipcode = evt.target.zipcode.value
+      const userId = id
+
       const updateInfo = {
         email,
-        password,
         firstName,
         lastName,
         streetName,
@@ -144,7 +134,6 @@ const mapDispatch = dispatch => {
         state,
         zipcode
       }
-      const userId = id
 
       await dispatch(updateMe(userId, updateInfo))
     }

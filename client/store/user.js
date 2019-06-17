@@ -36,6 +36,7 @@ export const me = () => async dispatch => {
 export const updateMe = (id, updatedUserInfo) => async dispatch => {
   try {
     const res = await axios.put(`/auth/${id}`, updatedUserInfo)
+    console.log(res.data)
     dispatch(updateUser(res.data))
   } catch (err) {
     console.error(err)
@@ -91,11 +92,14 @@ export const logout = () => async dispatch => {
  * REDUCER
  */
 export default function(state = defaultUser, action) {
+  console.log('ACTION>>', action.type)
   switch (action.type) {
     case GET_USER:
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case UPDATE_USER:
+      return action.user
     default:
       return state
   }
