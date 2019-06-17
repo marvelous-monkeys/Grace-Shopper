@@ -18,7 +18,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-const updateUser = user => ({type: UPDATE_USER, user})
+const updateUser = userUpdate => ({type: UPDATE_USER, userUpdate})
 
 /**
  * THUNK CREATORS
@@ -35,9 +35,11 @@ export const me = () => async dispatch => {
 
 export const updateMe = (id, updatedUserInfo) => async dispatch => {
   try {
-    const res = await axios.put(`/auth/${id}`, updatedUserInfo)
-    console.log(res.data)
-    dispatch(updateUser(res.data))
+    await axios.put(`/auth/${id}`, updatedUserInfo)
+    console.log('data>>>')
+    console.log(updatedUserInfo)
+    dispatch(updateUser(updatedUserInfo))
+    history.push('/home')
   } catch (err) {
     console.error(err)
   }
@@ -92,14 +94,13 @@ export const logout = () => async dispatch => {
  * REDUCER
  */
 export default function(state = defaultUser, action) {
-  console.log('ACTION>>', action.type)
   switch (action.type) {
     case GET_USER:
       return action.user
     case REMOVE_USER:
       return defaultUser
     case UPDATE_USER:
-      return action.user
+      return {...state, ...action.userUpdate}
     default:
       return state
   }

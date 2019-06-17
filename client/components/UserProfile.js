@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import axios from 'axios'
 import {updateMe} from '../store/user'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import UserHome from './user-home'
 
 class UserProfile extends Component {
   constructor() {
@@ -19,6 +20,7 @@ class UserProfile extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.updatingTheUser = this.updatingTheUser.bind(this)
+    // this.redirect = this.redirect.bind(this)
   }
 
   handleChange(event) {
@@ -32,6 +34,10 @@ class UserProfile extends Component {
     const userID = this.props.user.id
     this.props.updateUser(event, userID)
   }
+
+  // redirect(){
+  //   console.log(this.props)
+  // }
 
   // eslint-disable-next-line complexity
   render() {

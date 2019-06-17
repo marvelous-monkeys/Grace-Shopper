@@ -33,15 +33,20 @@ router.post('/signup', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
+  let userID
+  if (req.user) {
+    userID = req.user.id
+  } else {
+    userID = null
+  }
+
   try {
-    console.log(req.body)
     const firstName = req.body.firstName
     const lastName = req.body.lastName
     const streetName = req.body.streetName
     const city = req.body.city
     const state = req.body.state
     const zipcode = req.body.zipcode
-    const userID = req.params.id
     const email = req.body.email
     const password = req.body.password
 
@@ -62,8 +67,7 @@ router.put('/:id', async (req, res, next) => {
         }
       }
     )
-
-    // req.login(user, err => (err ? next(err) : res.json(user)))
+    res.sendStatus(201)
   } catch (err) {
     next(err)
   }
