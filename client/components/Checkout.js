@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import {Signup} from './index'
 import {auth} from '../store/user'
-import {emptyCart} from '../store/cart'
+import {emptyCart, emptyCartDb} from '../store/cart'
 
 class Checkout extends Component {
   constructor() {
@@ -54,6 +54,7 @@ class Checkout extends Component {
       totalAmount += quantity * price
     }
     const newOrder = await axios.post('/checkout', {allProducts, totalAmount})
+    await this.props.emptyCartDb()
   }
 
   render() {
@@ -186,8 +187,8 @@ const mapDispatch = dispatch => {
         )
       )
       placeOrder()
-      dispatch(emptyCart())
-    }
+    },
+    emptyCartDb: () => dispatch(emptyCartDb())
   }
 }
 
