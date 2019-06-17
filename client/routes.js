@@ -10,7 +10,7 @@ import {
   Checkout,
   AdminPage,
   EditProductForm,
-  AddProductFormm,
+  AddProductForm,
   OrderHistory
 } from './components'
 import {me} from './store'
@@ -35,12 +35,10 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/cart" component={Checkout} />
-
         <Route exact path="/admin" component={AdminPage} />
         <Route exact path="/admin/products/create" component={AddProductForm} />
         <Route path="/admin/products/:id/update" component={EditProductForm} />
         <Route path="/orderHistory" component={OrderHistory} />
->
         <Route path="/" component={ProductList} />
         {/* {this.props.user
           ? <Route path="/admin" component={AdminPage} />
