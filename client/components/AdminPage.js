@@ -61,6 +61,7 @@ class AdminPage extends React.Component {
               })}
             </tbody>
           </table>
+          <h1>Users:</h1>
           <table>
             <thead>
               <tr>
