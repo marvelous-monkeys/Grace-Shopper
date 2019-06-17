@@ -7,7 +7,7 @@ class EditProductForm extends Component {
     super(props)
     this.state = {
       name: '',
-      price: '',
+      price: 0,
       description: '',
       imageUrl: ''
     }
@@ -31,7 +31,7 @@ class EditProductForm extends Component {
 
     this.setState({
       name: '',
-      price: '',
+      price: 0,
       description: '',
       imageUrl: ''
     })
@@ -67,7 +67,7 @@ class EditProductForm extends Component {
             <input
               name="price"
               placeholder="Price..."
-              type="text"
+              type="number"
               defaultValue={this.props.product.price || ''}
               // value={this.state.price}
               onChange={this.handleChange}

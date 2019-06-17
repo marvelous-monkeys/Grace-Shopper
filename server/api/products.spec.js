@@ -12,12 +12,13 @@ describe('Product routes', () => {
   })
 
   describe('/api/products', () => {
-    beforeEach(() => {
-      return Product.create({
+    beforeEach(async () => {
+      const prod = await Product.create({
         name: 'ABC',
-        price: 1,
+        price: 10,
         description: 'alksdflkslfk sdlksdf'
       })
+      return prod
     })
 
     it('GET /api/products', async () => {

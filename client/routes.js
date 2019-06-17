@@ -28,8 +28,6 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
     const {isAdmin} = this.props
 
-    console.log('isAdmin in Routes', this.props.isAdmin)
-
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -55,6 +53,7 @@ class Routes extends Component {
             />
           </Switch>
         )}
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
