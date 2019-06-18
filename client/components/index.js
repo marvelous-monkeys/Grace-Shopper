@@ -13,4 +13,5 @@ export {default as AdminPage} from './AdminPage'
 export {default as EditProductForm} from './EditProductForm'
 export {default as AddProductForm} from './AddProductForm'
 export {default as OrderHistory} from './userOrderHistory'
-
+export {default as PaymentSuccess} from './paymentSuccess'
+export {default as PaymentFail} from './paymentFail'

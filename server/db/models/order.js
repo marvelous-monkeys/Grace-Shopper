@@ -13,6 +13,9 @@ const Order = db.define('order', {
   paymentDate: {
     type: Sequelize.DATE,
     allowNull: true
+  },
+  paypalPaymentId: {
+    type: Sequelize.STRING
   }
 })
 

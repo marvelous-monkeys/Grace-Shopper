@@ -11,7 +11,9 @@ import {
   AdminPage,
   EditProductForm,
   AddProductForm,
-  OrderHistory
+  OrderHistory,
+  PaymentSuccess,
+  PaymentFail
 } from './components'
 import {me} from './store'
 import ProductList from './components/ProductList'
@@ -39,6 +41,8 @@ class Routes extends Component {
         <Route exact path="/admin/products/create" component={AddProductForm} />
         <Route path="/admin/products/:id/update" component={EditProductForm} />
         <Route path="/orderHistory" component={OrderHistory} />
+        <Route path="/PaymentSuccess" component={PaymentSuccess} />
+        <Route path="/PaymentFail" component={PaymentFail} />
         <Route path="/" component={ProductList} />
         {/* {this.props.user
           ? <Route path="/admin" component={AdminPage} />
@@ -52,6 +56,8 @@ class Routes extends Component {
               path="/admin/products/:id/update"
               component={EditProductForm}
             />
+            <Route path="/PaymentSuccess" component={PaymentSuccess} />
+            <Route path="/PaymentFail" component={PaymentFail} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
