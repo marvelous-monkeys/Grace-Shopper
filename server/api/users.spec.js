@@ -19,11 +19,12 @@ describe('User routes', () => {
         firstName: 'Testy',
         lastName: 'Tester',
         email: codysEmail,
-        zipcode: 12345,
-        password: 'abc123',
+        streetName: 'asfd',
+        city: 'San Fran',
         state: 'CA',
-        streetName: 'fake street',
-        city: 'San Fran'
+        zipcode: '12344',
+        password: 'abc'
+
       })
       return newUser
     })

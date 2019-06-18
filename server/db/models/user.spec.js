@@ -17,12 +17,12 @@ describe('User model', () => {
         cody = await User.create({
           firstName: 'Testy',
           lastName: 'Tester',
-          email: codysEmail,
-          zipcode: 12345,
-          password: 'abc123',
+          email: 'cody@email.com',
+          streetName: 'asfd',
+          city: 'San Fran',
           state: 'CA',
-          streetName: 'fake street',
-          city: 'San Fran'
+          zipcode: '12344',
+          password: 'bones'
         })
         return cody
       })

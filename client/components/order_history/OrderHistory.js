@@ -24,7 +24,7 @@ const mapDispatch = dispatch => {
 }
 
 const mapState = state => {
-  return {orders: state.orders}
+  return {orders: state.orders.userOrders}
 }
 
 export default connect(mapState, mapDispatch)(OrderHistory)
