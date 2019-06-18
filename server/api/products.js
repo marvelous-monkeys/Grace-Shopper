@@ -55,11 +55,10 @@ router.delete('/:id', isAuthenticated, async (req, res, next) => {
 })
 
 router.put('/:id', isAuthenticated, async (req, res, next) => {
-  const {id, name, price, description, imageUrl} = req.body
+  const {name, price, description, imageUrl} = req.body
   try {
-    const [numOfRowsUpdated, affectedRows] = await Product.update(
+    const [numOfRowsUpdated, updatedProduct] = await Product.update(
       {
-        id,
         name,
         price,
         description,
@@ -70,8 +69,9 @@ router.put('/:id', isAuthenticated, async (req, res, next) => {
         returning: true
       }
     )
-    if (!affectedRows[0]) res.status(404).send('404 ERROR: Invalid product ID.')
-    else res.send(affectedRows[0])
+    if (!updatedProduct[0])
+      res.status(404).send('404 ERROR: Invalid product ID.')
+    else res.json(updatedProduct[0])
   } catch (error) {
     next(error)
   }

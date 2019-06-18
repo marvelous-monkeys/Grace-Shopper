@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {getAllProducts} from './products'
 
 const initialState = {}
 
@@ -21,6 +22,7 @@ export const updatingProduct = (id, product) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/products/${id}`, product)
     dispatch(updateProduct(data))
+    dispatch(getAllProducts())
   } catch (error) {
     console.error(error)
   }

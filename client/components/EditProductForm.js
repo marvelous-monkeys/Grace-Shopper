@@ -7,9 +7,10 @@ class EditProductForm extends Component {
     super(props)
     this.state = {
       name: '',
-      price: 0,
+      price: '',
       description: '',
-      imageUrl: ''
+      imageUrl: '',
+      didUpdate: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,20 +22,14 @@ class EditProductForm extends Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      didUpdate: true
     })
   }
 
   handleSubmit(event) {
     event.preventDefault()
     this.props.updateProduct(+this.props.match.params.id, this.state)
-
-    this.setState({
-      name: '',
-      price: 0,
-      description: '',
-      imageUrl: ''
-    })
 
     this.handleRedirect()
   }
@@ -55,10 +50,9 @@ class EditProductForm extends Component {
             Name:
             <input
               name="name"
-              placeholder="Name..."
+              placeholder={this.props.product.name}
               type="text"
-              defaultValue={this.props.product.name || ''}
-              // value={this.state.name}
+              value={this.state.name}
               onChange={this.handleChange}
             />
           </label>
@@ -66,10 +60,9 @@ class EditProductForm extends Component {
             Price:
             <input
               name="price"
-              placeholder="Price..."
-              type="number"
-              defaultValue={this.props.product.price || ''}
-              // value={this.state.price}
+              placeholder={this.props.product.price}
+              type="text"
+              value={this.state.price}
               onChange={this.handleChange}
             />
           </label>
@@ -77,10 +70,9 @@ class EditProductForm extends Component {
             Description:
             <input
               name="description"
-              placeholder="description..."
+              placeholder={this.props.product.description}
               type="text"
-              defaultValue={this.props.product.description || ''}
-              // value={this.state.description}
+              value={this.state.description}
               onChange={this.handleChange}
             />
           </label>
@@ -88,14 +80,13 @@ class EditProductForm extends Component {
             imageUrl:
             <input
               name="imageUrl"
-              placeholder="imageUrl..."
+              placeholder={this.props.product.imageUrl}
               type="text"
-              defaultValue={this.props.product.imageUrl || ''}
-              // value={this.state.imageUrl}
+              value={this.state.imageUrl}
               onChange={this.handleChange}
             />
           </label>
-          <button type="submit">Submit</button>
+          {this.state.didUpdate ? <button type="submit">Submit</button> : null}
         </form>
         <button onClick={this.handleRedirect}>Cancel</button>
       </div>
