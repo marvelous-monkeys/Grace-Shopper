@@ -24,4 +24,25 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', (req, res, next) => {
+  try {
+    if (req.user) {
+      userId = req.user.dataValues.id
+    } else {
+      throw 'Must be signed in the create order'
+    }
+    const order = Order.create(
+      {
+        totalAmount: req.body.totalAmount,
+        orderProducts: req.body.allProducts,
+        userId
+      },
+      {include: [OrderProduct]}
+    )
+    res.json(order)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
