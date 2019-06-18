@@ -39,7 +39,6 @@ class Routes extends Component {
         <Route exact path="/admin/products/create" component={AddProductForm} />
         <Route path="/admin/products/:id/update" component={EditProductForm} />
         <Route path="/orderHistory" component={OrderHistory} />
-        >
         <Route path="/" component={ProductList} />
         {/* {this.props.user
           ? <Route path="/admin" component={AdminPage} />

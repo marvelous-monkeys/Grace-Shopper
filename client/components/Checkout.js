@@ -6,6 +6,7 @@ import {auth} from '../store/user'
 import {emptyCartDb} from '../store/cart'
 import {placeOrderThunk} from '../store/orders'
 
+
 class Checkout extends Component {
   constructor() {
     super()
