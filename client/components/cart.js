@@ -1,10 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {getCartDb} from '../store'
 
 import css from './cart.css'
 import CartListItem from './cartListItem'
 class Cart extends Component {
+  componentDidMount() {
+    this.props.getCart()
+  }
+
   render() {
     return this.props.cart.products ? (
       <React.Fragment>
@@ -42,4 +47,8 @@ const mapState = state => ({
   cart: state.cart
 })
 
-export default connect(mapState)(Cart)
+const mapDispatch = dispatch => ({
+  getCart: () => dispatch(getCartDb())
+})
+
+export default connect(mapState, mapDispatch)(Cart)

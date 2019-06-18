@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getAllProducts} from '../store/products'
 import {Link} from 'react-router-dom'
-import {addToCart} from '../store/cart' //TODO:
+import {addToCartDb} from '../store/cart' //TODO:
 // import Axios from 'axios'
 
 class ProductList extends Component {
@@ -58,7 +58,7 @@ function mapState(state) {
 function mapDispatch(dispatch) {
   return {
     getAllProducts: () => dispatch(getAllProducts()),
-    addToCart: product => dispatch(addToCart(product))
+    addToCart: product => dispatch(addToCartDb(product))
   }
 }
 
