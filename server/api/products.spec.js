@@ -16,7 +16,7 @@ describe('Product routes', () => {
       const prod = await Product.create({
         id: 1,
         name: 'ABC',
-        price: 1,
+        price: 10,
         description: 'alksdflkslfk sdlksdf'
       })
       return prod

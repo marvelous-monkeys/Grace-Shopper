@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
+const isAuthenticated = require('./util')
+
 module.exports = router
 
 // gets all products
@@ -12,7 +14,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAuthenticated, async (req, res, next) => {
   try {
     const {id, name, price, description, imageUrl} = req.body
     const newProduct = await Product.create({
@@ -40,7 +42,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAuthenticated, async (req, res, next) => {
   try {
     const deletedItem = await Product.destroy({
       where: {id: req.params.id}
@@ -52,7 +54,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAuthenticated, async (req, res, next) => {
   const {id, name, price, description, imageUrl} = req.body
   try {
     const [numOfRowsUpdated, affectedRows] = await Product.update(
