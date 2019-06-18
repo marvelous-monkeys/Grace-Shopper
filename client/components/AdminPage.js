@@ -15,6 +15,10 @@ class AdminPage extends React.Component {
     const sort = arr => {
       return arr.sort((a, b) => a.id > b.id)
     }
+
+    const filterAdmin = (arr, id) => {
+      return arr.filter(user => user.id !== id)
+    }
     return (
       <div id="admin-page">
         <div className="admin-container">

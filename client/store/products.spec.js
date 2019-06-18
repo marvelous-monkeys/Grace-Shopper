@@ -15,7 +15,7 @@ describe('thunk creators', () => {
   let store
   let mockAxios
 
-  const initialState = {user: {}}
+  const initialState = []
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
@@ -27,7 +27,7 @@ describe('thunk creators', () => {
     store.clearActions()
   })
 
-  describe('me', () => {
+  describe('Get all products', () => {
     it('eventually dispatches the GET_ALL_PRODUCTS action', async () => {
       const fakeProduct = {name: 't1', price: 2, description: 'asdfs'}
       mockAxios.onGet('/api/products').replyOnce(200, fakeProduct)
