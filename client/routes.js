@@ -40,7 +40,21 @@ class Routes extends Component {
             <Route path="/checkout" component={Checkout} />
             <Route path="/cart" component={Checkout} />
             <Route path="/orderHistory" component={OrderHistory} />
-            <Route path="/" component={ProductList} />
+            <Route exact path="/" component={ProductList} />
+            {isAdmin && (
+              <Switch>
+                <Route exact path="/admin" component={AdminPage} />
+                <Route
+                  exact
+                  path="/admin/products/create"
+                  component={AddProductForm}
+                />
+                <Route
+                  path="/admin/products/:id/update"
+                  component={EditProductForm}
+                />
+              </Switch>
+            )}
           </Switch>
         )}
         {/* Routes placed here are available to all visitors */}
@@ -52,22 +66,6 @@ class Routes extends Component {
         <Route path="/" component={ProductList} />
         <Route path="/orderHistory" component={OrderHistory} />
         <Route exact path="/" component={ProductList} />
-
-        {isAdmin && (
-          <Switch>
-            <Route exact path="/admin" component={AdminPage} />
-            <Route
-              exact
-              path="/admin/products/create"
-              component={AddProductForm}
-            />
-            <Route
-              path="/admin/products/:id/update"
-              component={EditProductForm}
-            />
-          </Switch>
-        )}
-
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
