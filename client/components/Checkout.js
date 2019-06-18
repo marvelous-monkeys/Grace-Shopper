@@ -55,6 +55,7 @@ class Checkout extends Component {
     }
   }
 
+  // eslint-disable-next-line complexity
   render() {
     return (
       <div>

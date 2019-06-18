@@ -6,6 +6,7 @@ import {auth} from '../store'
 /**
  * COMPONENT
  */
+// eslint-disable-next-line complexity
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 

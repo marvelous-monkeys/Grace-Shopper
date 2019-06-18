@@ -15,6 +15,7 @@ import {
 } from './components'
 import {me} from './store'
 import ProductList from './components/ProductList'
+import UserProfile from './components/UserProfile'
 
 /**
  * COMPONENT
@@ -30,12 +31,25 @@ class Routes extends Component {
 
     return (
       <Switch>
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+            <Route path="/profile" component={UserProfile} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/cart" component={Checkout} />
+            <Route path="/orderHistory" component={OrderHistory} />
+            <Route path="/" component={ProductList} />
+          </Switch>
+        )}
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/cart" component={Checkout} />
+        <Route path="/" component={ProductList} />
         <Route path="/orderHistory" component={OrderHistory} />
         <Route exact path="/" component={ProductList} />
 
@@ -51,13 +65,6 @@ class Routes extends Component {
               path="/admin/products/:id/update"
               component={EditProductForm}
             />
-          </Switch>
-        )}
-
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
           </Switch>
         )}
 
