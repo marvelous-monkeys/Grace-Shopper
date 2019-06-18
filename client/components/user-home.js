@@ -11,7 +11,7 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
-      {orderSuccess.length > 0 && <h4>{this.props.orderSuccess}</h4>}
+      {props.orderSuccess.length > 0 && <h4>{props.orderSuccess}</h4>}
     </div>
   )
 }
