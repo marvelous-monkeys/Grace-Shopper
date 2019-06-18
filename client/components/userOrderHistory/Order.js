@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import OrderProduct from './OrderProduct'
+import axios from 'axios'
 
 const Order = ({order}) => {
   return (
@@ -12,6 +13,10 @@ const Order = ({order}) => {
       ))}
     </div>
   )
+}
+
+const sendRequest = orderId => {
+  axios.post('/payment/google', {orderId}).then()
 }
 
 export default Order
