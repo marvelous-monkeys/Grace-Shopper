@@ -33,11 +33,10 @@ export const me = () => async dispatch => {
   }
 }
 
+// updates user profile
 export const updateMe = (id, updatedUserInfo) => async dispatch => {
   try {
-    await axios.put(`/auth/${id}`, updatedUserInfo)
-    console.log('data>>>')
-    console.log(updatedUserInfo)
+    await axios.put(`/api/users/${id}`, updatedUserInfo)
     dispatch(updateUser(updatedUserInfo))
     history.push('/home')
   } catch (err) {
