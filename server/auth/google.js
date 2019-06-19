@@ -2,6 +2,11 @@ const passport = require('passport')
 const router = require('express').Router()
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const {User} = require('../db/models')
+const {
+  GOOGLE_CALLBACK,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET
+} = require('../../secrets')
 module.exports = router
 
 /**
@@ -18,25 +23,35 @@ module.exports = router
  * process.env.GOOGLE_CALLBACK = '/your/google/callback'
  */
 
+process.env.GOOGLE_CLIENT_ID = GOOGLE_CLIENT_ID
+process.env.GOOGLE_CLIENT_SECRET = GOOGLE_CLIENT_SECRET
+process.env.GOOGLE_CALLBACK = GOOGLE_CALLBACK
+
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   console.log('Google client ID / secret not found. Skipping Google OAuth.')
 } else {
   const googleConfig = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK
+    callbackURL: 'https://gs-potion-store.herokuapp.com/auth/google/callback',
+    scope: ['email']
   }
 
   const strategy = new GoogleStrategy(
     googleConfig,
     (token, refreshToken, profile, done) => {
       const googleId = profile.id
-      const name = profile.displayName
+      const firstName = 'Please Update'
+      const lastName = 'Please Update'
       const email = profile.emails[0].value
+      const streetName = 'Please Update'
+      const city = 'Please Update'
+      const state = 'NY'
+      const zipcode = '12345'
 
       User.findOrCreate({
         where: {googleId},
-        defaults: {name, email}
+        defaults: {firstName, lastName, email, streetName, city, state, zipcode}
       })
         .then(([user]) => done(null, user))
         .catch(done)
@@ -51,7 +66,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     '/callback',
     passport.authenticate('google', {
       successRedirect: '/home',
-      failureRedirect: '/login'
+      failureRedirect: '/signup'
     })
   )
 }

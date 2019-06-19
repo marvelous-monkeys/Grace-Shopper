@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const isAuthenticated = require('./util')
+
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAuthenticated, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -38,7 +40,48 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
+  let userID
+  if (req.user) {
+    userID = req.user.id
+  } else {
+    userID = null
+  }
+
+  try {
+    const firstName = req.body.firstName
+    const lastName = req.body.lastName
+    const streetName = req.body.streetName
+    const city = req.body.city
+    const state = req.body.state
+    const zipcode = req.body.zipcode
+    const email = req.body.email
+    const password = req.body.password
+
+    await User.update(
+      {
+        firstName,
+        lastName,
+        email,
+        streetName,
+        city,
+        state,
+        zipcode,
+        password
+      },
+      {
+        where: {
+          id: userID
+        }
+      }
+    )
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id', isAuthenticated, async (req, res, next) => {
   try {
     const deletedUser = await User.destroy({
       where: {id: +req.params.id}

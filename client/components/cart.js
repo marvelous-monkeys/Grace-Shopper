@@ -35,7 +35,7 @@ class Cart extends Component {
             ))}
           </tbody>
         </table>
-        <Link to="/checkout">Checkout Here!</Link>
+        <Link to="/checkout">Go to Checkout!</Link>
       </React.Fragment>
     ) : (
       <h1>The cart is empty</h1>

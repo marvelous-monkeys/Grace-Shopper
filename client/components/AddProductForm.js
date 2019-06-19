@@ -7,7 +7,7 @@ class AddProductForm extends Component {
     super(props)
     this.state = {
       name: '',
-      price: '',
+      price: 0,
       description: '',
       imageUrl:
         'https://oldschool.runescape.wiki/images/f/f5/Prayer_potion%281%29_detail.png?74091',
@@ -31,7 +31,7 @@ class AddProductForm extends Component {
 
     this.setState({
       name: '',
-      price: '',
+      price: 0,
       description: '',
       imageUrl: '',
       success: true
@@ -68,7 +68,7 @@ class AddProductForm extends Component {
             <input
               name="price"
               placeholder="Price..."
-              type="text"
+              type="number"
               value={this.state.price}
               onChange={this.handleChange}
             />

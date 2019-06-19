@@ -2,8 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getAllProducts, deleteSingleProduct} from '../store/products'
-import {getUsers} from '../store/users'
-import {deleteSingleUser} from '../store/users'
+import {getUsers, deleteSingleUser} from '../store/users'
 
 class AdminPage extends React.Component {
   componentDidMount() {
@@ -14,6 +13,10 @@ class AdminPage extends React.Component {
   render() {
     const sort = arr => {
       return arr.sort((a, b) => a.id > b.id)
+    }
+
+    const filterAdmin = (arr, id) => {
+      return arr.filter(user => user.id !== id)
     }
     return (
       <div id="admin-page">
@@ -70,7 +73,7 @@ class AdminPage extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.users.map(user => {
+              {filterAdmin(this.props.users, this.props.userId).map(user => {
                 return (
                   <tr key={user.id}>
                     <td>{user.id}</td>
@@ -96,7 +99,8 @@ class AdminPage extends React.Component {
 
 const mapState = state => ({
   products: state.products,
-  users: state.users
+  users: state.users,
+  userId: state.user.id
 })
 
 const mapDispatch = dispatch => ({

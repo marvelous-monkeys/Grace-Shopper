@@ -14,12 +14,18 @@ describe('User routes', () => {
   describe('/api/users/', () => {
     const codysEmail = 'cody@puppybook.com'
 
-    beforeEach(() => {
-      return User.create({
+    beforeEach(async () => {
+      const newUser = await User.create({
         firstName: 'Testy',
         lastName: 'Tester',
-        email: codysEmail
+        email: codysEmail,
+        streetName: 'asfd',
+        city: 'San Fran',
+        state: 'CA',
+        zipcode: '12344',
+        password: 'abc'
       })
+      return newUser
     })
 
     it('GET /api/users', async () => {
