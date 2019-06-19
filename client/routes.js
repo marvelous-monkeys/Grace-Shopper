@@ -11,7 +11,9 @@ import {
   AdminPage,
   EditProductForm,
   AddProductForm,
-  OrderHistory
+  OrderHistory,
+  PaymentSuccess,
+  PaymentFail
 } from './components'
 import {me} from './store'
 import ProductList from './components/ProductList'
@@ -40,6 +42,8 @@ class Routes extends Component {
             <Route path="/checkout" component={Checkout} />
             <Route path="/cart" component={Checkout} />
             <Route path="/orderHistory" component={OrderHistory} />
+            <Route path="/PaymentSuccess" component={PaymentSuccess} />
+            <Route path="/PaymentFail" component={PaymentFail} />
             <Route exact path="/" component={ProductList} />
             {isAdmin && (
               <Switch>
@@ -65,6 +69,8 @@ class Routes extends Component {
         <Route path="/cart" component={Checkout} />
         <Route path="/" component={ProductList} />
         <Route path="/orderHistory" component={OrderHistory} />
+        <Route path="/PaymentSuccess" component={PaymentSuccess} />
+        <Route path="/PaymentFail" component={PaymentFail} />
         <Route exact path="/" component={ProductList} />
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
