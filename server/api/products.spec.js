@@ -14,7 +14,6 @@ describe('Product routes', () => {
   describe('/api/products', () => {
     beforeEach(async () => {
       const prod = await Product.create({
-        id: 1,
         name: 'ABC',
         price: 10,
         description: 'alksdflkslfk sdlksdf'

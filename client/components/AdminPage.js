@@ -22,7 +22,7 @@ class AdminPage extends React.Component {
       <div id="admin-page">
         <div className="admin-container">
           <h1>Products:</h1>
-          <button type="submit">
+          <button type="submit" className="bttn">
             <Link to="/admin/products/create">Add New Item</Link>
           </button>
           <table>
@@ -32,7 +32,7 @@ class AdminPage extends React.Component {
                 <th>Name</th>
                 <th>Price</th>
                 <th>Description</th>
-                <th>Image</th>
+                <th className="img-td">Image</th>
               </tr>
             </thead>
             <tbody>
@@ -45,7 +45,7 @@ class AdminPage extends React.Component {
                     <td>{item.description}</td>
                     <td>{item.imageUrl}</td>
                     <td>
-                      <button type="submit">
+                      <button type="submit" className="bttn">
                         <Link to={`/admin/products/${item.id}/update`}>
                           Edit
                         </Link>
@@ -53,6 +53,7 @@ class AdminPage extends React.Component {
                     </td>
                     <td>
                       <button
+                        className="bttn"
                         type="submit"
                         onClick={() => this.props.deleteProduct(item.id)}
                       >
@@ -80,6 +81,7 @@ class AdminPage extends React.Component {
                     <td>{user.email}</td>
                     <td>
                       <button
+                        className="bttn"
                         type="submit"
                         onClick={() => this.props.removeUser(user.id)}
                       >

@@ -9,8 +9,8 @@ export const UserHome = props => {
   const {email} = props
 
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
+    <div className="welcome">
+      <h3 className="welcome-msg">Welcome, {email}</h3>
       {props.orderSuccess.length > 0 && <h4>{props.orderSuccess}</h4>}
     </div>
   )

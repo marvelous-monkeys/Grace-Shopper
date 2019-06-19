@@ -21,29 +21,32 @@ class ProductList extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Product List</h2>
-        {this.props.products.map(product => {
-          return (
-            <div key={product.id}>
-              {/* <Link to={`/products/${product.id}`}> */}
-              <h3>{product.name}</h3>
-              <img src={product.imageUrl} />
-              <p>{product.description}</p>
-              <h4>{product.price}</h4>
+      <div className="prods-sect">
+        <h2 className="title">Potions</h2>
+        <div id="all-products">
+          {this.props.products.map(product => {
+            return (
+              <div key={product.id} className="product-container">
+                {/* <Link to={`/products/${product.id}`}> */}
+                <h3>{product.name}</h3>
+                <img className="p-img" src={product.imageUrl} />
+                <p>{product.description}</p>
+                <h4>${product.price}</h4>
 
-              {/* </Link> */}
-              <button
-                type="button"
-                onClick={() => {
-                  this.handleClick(product)
-                }}
-              >
-                ADD to cart
-              </button>
-            </div>
-          )
-        })}
+                {/* </Link> */}
+                <button
+                  className="bttn"
+                  type="button"
+                  onClick={() => {
+                    this.handleClick(product)
+                  }}
+                >
+                  Add to cart
+                </button>
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }
