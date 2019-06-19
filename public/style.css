@@ -1,5 +1,6 @@
 body {
   font-family: 'Merriweather', sans-serif;
+  background-color: peachpuff;
 }
 
 a {
@@ -138,4 +139,9 @@ th {
   border-style: solid;
   text-decoration: none;
   transition-duration: 0.2s;
+}
+
+img {
+  max-width: 250px;
+  max-height: 250px;
 }
