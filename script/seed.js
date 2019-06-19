@@ -35,22 +35,44 @@ async function seed() {
     Product.create({
       name: 'PassionForLife',
       price: 30,
-      description: "Lover's potion"
+      description: "Lover's potion",
+      imageUrl:
+        'https://cdn2.vectorstock.com/i/1000x1000/26/16/bottle-with-love-potion-icon-magic-elixir-design-vector-19692616.jpg'
+    }),
+    Product.create({
+      name: 'Blood Vial',
+      price: 28,
+      description: 'A hunters dream',
+      imageUrl:
+        'https://4.bp.blogspot.com/-WKoFpdrvpeY/VkfgWnobECI/AAAAAAAAL2M/PwJBdUwegt0/s250/01.%2BBlood%2BVial.png'
     }),
     Product.create({
       name: 'Black Magic',
       price: 45,
-      description: 'Revenge is sweet'
+      description: 'Revenge is sweet',
+      imageUrl:
+        'https://images-na.ssl-images-amazon.com/images/I/51mWqbc-AjL._SY550_.jpg'
     }),
     Product.create({
-      name: 'Black Magic',
-      price: 45,
-      description: 'Revenge is sweet'
+      name: 'Medicines of Life',
+      price: 32,
+      description: 'Become the Hero of Time',
+      imageUrl:
+        'https://gamepedia.cursecdn.com/zelda_gamepedia_en/4/41/TWW_Red_Potion_Artwork.png'
     }),
     Product.create({
-      name: 'Black Magic',
+      name: 'Hyper Potion',
+      price: 60,
+      description: 'Restore 200HP!',
+      imageUrl:
+        'http://weblab.springfieldcollege.edu/arts103/arts320/bestof320f16/final-danielle/images/hyperpotion.jpg'
+    }),
+    Product.create({
+      name: 'Slurp Juice',
       price: 45,
-      description: 'Revenge is sweet'
+      description: 'Squad up',
+      imageUrl:
+        'https://tipsybartender.com/wp-content/uploads/2019/01/fortnite-slurp-juice.jpg'
     })
   ])
 

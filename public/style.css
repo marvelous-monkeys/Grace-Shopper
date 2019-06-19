@@ -139,3 +139,9 @@ th {
   text-decoration: none;
   transition-duration: 0.2s;
 }
+
+img {
+  max-width: 250px;
+  max-height: 250px;
+  overflow: hidden;
+}
