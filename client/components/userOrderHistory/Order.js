@@ -1,55 +1,48 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import OrderProduct from './OrderProduct'
+// import {userOrdersThunk} from '../../store'
+// import {connect} from 'react-redux'
 import axios from 'axios'
 
-const Order = props => {
-  const createPayment = orderId => {
+export default class Order extends Component {
+  handlePayment(orderId) {
     axios.post('payments/paypal/pay', {orderId}).then(({data}) => {
-      window.open(data, 'sharer', 'toolbar=0,status=0,width=548,height=750')
+      let child = window.open(
+        data,
+        'sharer',
+        'toolbar=0,status=0,width=548,height=750'
+      )
+      setInterval(() => {
+        if (child.closed) window.location.reload()
+      }, 500)
     })
   }
-  const order = props.order
-  return (
-    <div>
-      <h1> Order #{order.id}</h1>
-      <h2>Ordered on: {new Date(order.createdAt).toString().slice(0, 15)}</h2>
-      {order.orderProducts.map((el, i) => (
-        <OrderProduct key={i} product={el.product} />
-      ))}
-      <button onClick={() => createPayment(order.id)}>Pay This One!</button>
-    </div>
-  )
+
+  render() {
+    const order = this.props.order
+    return (
+      <div>
+        <h1> Order #{order.id}</h1>
+        <h2>Ordered on: {new Date(order.createdAt).toString().slice(0, 15)}</h2>
+        {order.orderProducts.map((el, i) => (
+          <OrderProduct key={i} product={el.product} quantity={el.quantity} />
+        ))}
+        <h2>Total amount: ${order.totalAmount}</h2>
+        {order.payment ? (
+          <h2>Status: Payment done</h2>
+        ) : (
+          <div>
+            <h2>Status: payment required</h2>
+            <button onClick={() => this.handlePayment(order.id)}>
+              <img
+                src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png"
+                alt="PayPal"
+              />
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  }
 }
-
-// class Order extends React.Component{
-//   constructor(props) {
-//     super(props)
-//     this.state = {showPopup: false}
-//   }
-
-//   handlePayment(orderId) {
-//     axios.post('payments/paypal/pay',{orderId}).then(({data})=>history.push(data))
-//   }
-
-//   render() {
-//     const order = this.props.order
-//     return (
-//       <div>
-//         <h1> Order #{order.id}</h1>
-//         <h2>Ordered on: {new Date(order.createdAt).toString().slice(0, 15)}</h2>
-//         {order.orderProducts.map((el, i) => (
-//           <OrderProduct key={i} product={el.product} />
-//         ))}
-//         <button onClick={()=>createPayment(order.id)}>Pay This One!</button>
-//       </div>
-//     )
-//   }
-
-// }
-
-const sendRequest = orderId => {
-  axios.post('/payment/google', {orderId}).then()
-}
-
-export default Order

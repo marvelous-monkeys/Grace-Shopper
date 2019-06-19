@@ -89,24 +89,3 @@ router.get('/cancel', (req, res, next) => {
 })
 
 module.exports = router
-
-// import axios from 'axios'
-
-// const Order = (props) => {
-//   const createPayment = (orderId)=>{
-//     axios.post('payments/paypal/pay', {orderId}).then(({data})=>{
-//       window.open(data, 'sharer', 'toolbar=0,status=0,width=548,height=750')
-//     })
-//   }
-//   const order = props.order
-//   return (
-//     <div>
-//       <h1> Order #{order.id}</h1>
-//       <h2>Ordered on: {new Date(order.createdAt).toString().slice(0, 15)}</h2>
-//       {order.orderProducts.map((el, i) => (
-//         <OrderProduct key={i} product={el.product} />
-//       ))}
-//       <button onClick={()=>createPayment(order.id)}>Pay This One!</button>
-//     </div>
-//   )
-// }
