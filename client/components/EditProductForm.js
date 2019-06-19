@@ -86,9 +86,15 @@ class EditProductForm extends Component {
               onChange={this.handleChange}
             />
           </label>
-          {this.state.didUpdate ? <button type="submit">Submit</button> : null}
+          {this.state.didUpdate ? (
+            <button type="submit" className="bttn">
+              Submit
+            </button>
+          ) : null}
         </form>
-        <button onClick={this.handleRedirect}>Cancel</button>
+        <button onClick={this.handleRedirect} className="bttn">
+          Cancel
+        </button>
       </div>
     )
   }

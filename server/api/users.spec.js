@@ -24,7 +24,6 @@ describe('User routes', () => {
         state: 'CA',
         zipcode: '12344',
         password: 'abc'
-
       })
       return newUser
     })

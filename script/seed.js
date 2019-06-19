@@ -41,6 +41,16 @@ async function seed() {
       name: 'Black Magic',
       price: 45,
       description: 'Revenge is sweet'
+    }),
+    Product.create({
+      name: 'Black Magic',
+      price: 45,
+      description: 'Revenge is sweet'
+    }),
+    Product.create({
+      name: 'Black Magic',
+      price: 45,
+      description: 'Revenge is sweet'
     })
   ])
 

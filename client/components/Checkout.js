@@ -6,7 +6,6 @@ import {auth} from '../store/user'
 import {emptyCartDb} from '../store/cart'
 import {placeOrderThunk} from '../store/orders'
 
-
 class Checkout extends Component {
   constructor() {
     super()
@@ -155,6 +154,7 @@ class Checkout extends Component {
                 value={this.state.password}
               />{' '}
               <button
+                className="bttn"
                 type="submit"
                 disabled={
                   !this.state.firstName.length ||
@@ -192,6 +192,7 @@ class Checkout extends Component {
             <h3>State: {this.props.user.state}</h3>
             <h3>City: {this.props.user.zipcode}</h3>
             <button
+              className="bttn"
               type="submit"
               onClick={() => this.props.placeOrder(this.props.cart)}
             >
