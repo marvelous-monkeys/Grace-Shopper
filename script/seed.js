@@ -68,11 +68,11 @@ async function seed() {
         'http://weblab.springfieldcollege.edu/arts103/arts320/bestof320f16/final-danielle/images/hyperpotion.jpg'
     }),
     Product.create({
-      name: 'Volcanic Potion',
-      price: 15,
-      description: 'Deal 2 damage to all minions',
+      name: 'Slurp Juice',
+      price: 45,
+      description: 'Squad up',
       imageUrl:
-        'https://gamepedia.cursecdn.com/hearthstone_gamepedia/thumb/c/cc/Volcanic_Potion_full.jpg/500px-Volcanic_Potion_full.jpg'
+        'https://tipsybartender.com/wp-content/uploads/2019/01/fortnite-slurp-juice.jpg'
     })
   ])
 

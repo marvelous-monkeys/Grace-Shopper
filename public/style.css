@@ -1,6 +1,5 @@
 body {
   font-family: 'Merriweather', sans-serif;
-  background-color: peachpuff;
 }
 
 a {
@@ -144,4 +143,5 @@ th {
 img {
   max-width: 250px;
   max-height: 250px;
+  overflow: hidden;
 }
